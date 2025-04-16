@@ -1,2 +1,3 @@
-# digit_identifier
+# Digit Identifier
+
 This application identifies digits through image recognition.
