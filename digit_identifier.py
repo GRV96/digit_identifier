@@ -32,18 +32,27 @@ def create_database(image_dir, loading_flag):
 	return database
 
 
+def print_dict(a_dict):
+	output = ""
+
+	for k, v in a_dict.items():
+		output += f"{k}: {v}\n"
+
+	print(output)
+
+
 def recognize_digit(digit_image, database):
 	confidence = RecognitionConfidence()
 
-	for digit, ref_images in database.items():
-		for ref_image in ref_images:
-			for column_index in range(len(ref_image)):
-				column = ref_image[column_index]
-				for row_index in range(len(column)):
-					if digit_image[column_index][row_index] == digit_image[column_index][row_index]:
-						confidence.apply_delta_points(digit, 2)
+	for digit, db_images in database.items():
+		for db_image in db_images:
+			size0, size1 = db_image.shape
+			for i0 in range(size0):
+				for i1 in range(size1):
+					if digit_image[i0, i1] == digit_image[i0, i1]:
+						confidence.apply_delta_score(digit, 2)
 					else:
-						confidence.apply_delta_points(digit, -1)
+						confidence.apply_delta_score(digit, -1)
 
 	return confidence.calculate_confidence()
 

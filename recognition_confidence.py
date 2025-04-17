@@ -29,9 +29,12 @@ class RecognitionConfidence:
 		ds = self._get_digit_score(digit_key)
 		ds.score = score
 
-	def apply_delta_points(self, digit_key:int, delta_points:int) -> None:
+	def apply_delta_score(self, digit_key:int, delta_score:int) -> None:
 		ds = self._get_digit_score(digit_key)
-		ds.score += delta_points
+		ds.score += delta_score
+
+	def as_dict(self) -> dict[int, float]:
+		return {digit: ds.score for digit, ds in self._content.items()}
 
 	def calculate_confidence(self) -> float:
 		sorted_scores = sorted(
