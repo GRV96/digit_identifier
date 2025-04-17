@@ -21,7 +21,7 @@ def get_digit_from_file_name(img_file_name):
 
 def create_database(image_dir, loading_flag):
 	database = dict()
-	for i in range(10): # Digits from 0 to 10
+	for i in range(10): # Digits from 0 to 9
 		database[i] = list()
 
 	for img_file in image_dir.glob(_PATTERN_DATASET_IMG):
@@ -49,7 +49,7 @@ def recognize_digit(digit_image, database):
 			size0, size1 = db_image.shape
 			for i0 in range(size0):
 				for i1 in range(size1):
-					if digit_image[i0, i1] == digit_image[i0, i1]:
+					if digit_image[i0, i1] == db_image[i0, i1]:
 						confidence.apply_delta_score(digit, 2)
 					else:
 						confidence.apply_delta_score(digit, -1)
