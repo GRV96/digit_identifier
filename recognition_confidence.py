@@ -16,6 +16,9 @@ class _DigitScore:
 	def score(self, value:int) -> None:
 		self._score = value
 
+	def apply_delta_score(self, delta_score:float) -> None:
+		self._score += delta_score
+
 
 class RecognitionConfidence:
 
@@ -26,12 +29,10 @@ class RecognitionConfidence:
 		return self._get_digit_score(digit_key).score
 
 	def __setitem__(self, digit_key:int, score:int) -> None:
-		ds = self._get_digit_score(digit_key)
-		ds.score = score
+		self._get_digit_score(digit_key).score = score
 
 	def apply_delta_score(self, digit_key:int, delta_score:int) -> None:
-		ds = self._get_digit_score(digit_key)
-		ds.score += delta_score
+		self._get_digit_score(digit_key).apply_delta_score(delta_score)
 
 	def as_dict(self) -> dict[int, float]:
 		return {digit: ds.score for digit, ds in self._content.items()}
