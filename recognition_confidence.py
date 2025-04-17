@@ -43,7 +43,7 @@ class RecognitionConfidence:
 		max_ds0 = sorted_scores[0]
 		max_ds1 = sorted_scores[1]
 
-		confidence = min((1.0 / max_ds0.score) * max_ds1.score, 1.0)
+		confidence = min(max_ds1.score / max_ds0.score, 1.0)
 		return max_ds0.digit, confidence
 
 	def _get_digit_score(self, digit_key:int) -> _DigitScore:
