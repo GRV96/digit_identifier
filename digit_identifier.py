@@ -88,4 +88,4 @@ image = cv2.imread(digit_path, cv2.IMREAD_COLOR)
 image = norm_bin(image)
 digit, confidence = recognize_digit(image, db)
 
-print(f"Digit: {digit}\nConfidence: {confidence}")
+print(f"Digit: {digit}\nConfidence: {round(confidence * 100, 2)}%")
